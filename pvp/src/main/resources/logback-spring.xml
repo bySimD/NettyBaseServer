@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+
+    <!-- 변수 지정 -->
+    <property name="LOG_DIR" value="./logs" />
+    <property name="LOG_PATH_NAME" value="${LOG_DIR}/data_log" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %highlight(%-5p) %cyan(%-36logger{36}) [%-13.-13M] %m%n</pattern>
+        </layout>
+    </appender>
+
+    <!-- 파일 -->
+    <appender name="RollingFile"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH_NAME}.log</file>
+        <encoder
+                class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>>%d{yyyy-MM-dd HH:mm:ss} %highlight(%-5p) %cyan(%-36logger{36}) [%-13.-13M] %m%n</Pattern>
+        </encoder>
+
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/${LOG_PATH_NAME}-%d{yyyy-MM-dd}.%i.log
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <!--&lt;!&ndash; TRACE > DEBUG > INFO > WARN > ERROR, 대소문자 구분 안함 &ndash;&gt;-->
+    <!--&lt;!&ndash; profile 을 읽어서 appender 을 설정할수 있다.(phase별 파일을 안만들어도 되는 좋은 기능) &ndash;&gt;-->
+    <springProfile name="local">
+        <root level="DEBUG">
+            <appender-ref ref="STDOUT" />
+        </root>
+        <logger name="org.springframework.beans" level="info">
+            <appender-ref ref="STDOUT" />
+        </logger>
+        <logger name="org.springframework.boot" level="info">
+            <appender-ref ref="STDOUT" />
+        </logger>
+        <logger name="org.springframework.core" level="info">
+            <appender-ref ref="STDOUT" />
+        </logger>
+        <logger name="org.springframework.beans" level="info">
+            <appender-ref ref="STDOUT" />
+        </logger>
+        <logger name="org.springframework.context" level="info">
+            <appender-ref ref="STDOUT" />
+        </logger>
+        <logger name="org.springframework.web" level="info">
+            <appender-ref ref="STDOUT" />
+        </logger>
+    </springProfile>
+    <springProfile name="dev">
+        <root level="INFO">
+            <appender-ref ref="RollingFile" />
+        </root>
+        <logger name="org.springframework.beans" level="info">
+            <appender-ref ref="RollingFile" />
+        </logger>
+        <logger name="org.springframework.boot" level="info">
+            <appender-ref ref="RollingFile" />
+        </logger>
+        <logger name="org.springframework.core" level="info">
+            <appender-ref ref="RollingFile" />
+        </logger>
+        <logger name="org.springframework.beans" level="info">
+            <appender-ref ref="RollingFile" />
+        </logger>
+        <logger name="org.springframework.context" level="info">
+            <appender-ref ref="RollingFile" />
+        </logger>
+        <logger name="org.springframework.web" level="info">
+            <appender-ref ref="RollingFile" />
+        </logger>
+    </springProfile>
+    <springProfile name="stage">
+        <root level="INFO">
+            <appender-ref ref="RollingFile" />
+        </root>
+        <logger name="org.springframework.beans" level="info">
+            <appender-ref ref="RollingFile" />
+        </logger>
+        <logger name="org.springframework.boot" level="info">
+            <appender-ref ref="RollingFile" />
+        </logger>
+        <logger name="org.springframework.core" level="info">
+            <appender-ref ref="RollingFile" />
+        </logger>
+        <logger name="org.springframework.beans" level="info">
+            <appender-ref ref="RollingFile" />
+        </logger>
+        <logger name="org.springframework.context" level="info">
+            <appender-ref ref="RollingFile" />
+        </logger>
+        <logger name="org.springframework.web" level="info">
+            <appender-ref ref="STDOUT" />
+        </logger>
+    </springProfile>
+</configuration>

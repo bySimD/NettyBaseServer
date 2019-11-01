@@ -1,0 +1,26 @@
+### DEFAULT
+# Spring
+spring:
+  profiles:
+    active: local
+
+server.port: 10500
+
+## LOCAL
+---
+# spring
+spring:
+  profiles: local
+  application:
+    name: adminserver
+
+
+## DEV
+---
+# spring
+spring:
+  profiles: dev
+  application:
+    name: adminserver
+
+server.port: 10500

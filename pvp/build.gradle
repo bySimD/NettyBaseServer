@@ -1,0 +1,70 @@
+plugins {
+    id 'org.springframework.boot' version '2.1.9.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+}
+
+group = 'com.simd'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    ext.profile = (!project.hasProperty('profile') || !profile) ? 'local' : profile
+    main {
+        java {
+            srcDirs "src/main/java"
+        }
+        resources {
+            srcDirs "src/main/resources", "src/main/resources-env/${profile}"
+        }
+    }
+}
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    // template
+    compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // log
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.28'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+
+
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+
+    // google
+    compile group: 'com.google.api-client', name: 'google-api-client', version: '1.30.2'
+    compile group: 'com.google.oauth-client', name: 'google-oauth-client', version: '1.23.0'
+    compile group: 'com.google.apis', name: 'google-api-services-sheets', version: 'v4-rev578-1.23.0'
+    compile group: 'com.google.auth', name: 'google-auth-library-oauth2-http', version: '0.16.2'
+
+    // netty
+    compile group: 'io.netty', name: 'netty-all', version: '4.1.15.Final'
+
+    // admin
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.2.0.RELEASE'
+    compile group: 'de.codecentric', name: 'spring-boot-admin-starter-client', version: '2.1.6'
+//    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.2.0.RELEASE'
+
+    // test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      th:with="paramApply = ${#httpServletRequest.getParameter('apply')},
+                paramCategory = ${#httpServletRequest.getParameter('category')},
+                paramTargetSheet = ${#httpServletRequest.getParameter('sheetName')},
+
+                isApplyData = ${paramApply != null and paramApply == '1'},
+                isSheetData = ${paramCategory != null and paramCategory == 'sheet'},
+                isTargetSheetData = not ${isApplyData} and ${paramTargetSheet != null and !paramTargetSheet.isEmpty()},
+
+                htmlTitle = ${isSheetData}?'TsumBlast Google Sheet Data':'TsumBlast Game Static Data',
+                htmlFormCategory = ${isSheetData} ? 'static' : 'sheet',
+
+                htmlViewButtonCaption = ${isSheetData} ? '게임 데이터 보기' : '구글 시트 가져오기',
+                htmlApplyButtonCaption = '게임 데이터로 적용',
+                htmlTargetViewButtonCaption = ${htmlViewButtonCaption} +  '(이 시트만)',
+                htmlTargetApplyButtonCaption = ${htmlApplyButtonCaption} + '(이 시트만)',
+                htmlApplyMessage = '구글 시트 데이터가 게임 스태틱 데이터에 반영되었습니다.'
+                ">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${htmlTitle}"></title>
+    <link rel="stylesheet" type="text/css" href="/css/AdminCommon.css" />
+    <script type="text/javascript" th:inline="javascript">
+        function onLoad(isApplyData)
+        {
+            if (isApplyData)
+            {
+                alert("${htmlApplyMessage}");
+            }
+        }
+
+        function onViewButtonClick(targetSheetName)
+        {
+            var frm = document.viewForm;
+
+            frm.action = "admin.do?pageName=admin/StaticData&apply=0&category="+ [[${htmlFormCategory}]]+"&sheetName=" + targetSheetName;
+            frm.submit();
+        }
+
+        function onApplyClick(targetSheetName)
+        {
+            var frm = document.viewForm;
+
+            frm.action = "admin.do?pageName=admin/StaticData&apply=1&category="+ [[${htmlFormCategory}]]+"&sheetName=" + targetSheetName;
+            frm.submit();
+        }
+    </script>
+</head>
+<body th:onload="|onLoad(${isApplyData})|" >
+<h1 th:text="${htmlTitle}"></h1>
+<form name="viewForm" method="post">
+    <input type="button" th:value="${htmlViewButtonCaption}" th:onclick="|onViewButtonClick('')|" />
+    <input th:if="${isSheetData} and not ${isTargetSheetData}" type="button" th:value="${htmlApplyButtonCaption}" onclick="javascript:onApplyClick('');" />
+    <br>
+    <br>
+    <hr>
+    <h2 id="#top">시트 바로가기</h2>
+    <table>
+        <tr >
+            <td th:if="${index.index} <= 10" th:each="sheet,index : ${ResMap}">
+                <a th:href="'#' + ${sheet.key}" th:text="${sheet.key}"/>
+            </td>
+        </tr>
+        <tr >
+            <td th:if="${index.index} > 10" th:each="sheet,index : ${ResMap}">
+                <a th:href="'#' + ${sheet.key}" th:text="${sheet.key}"/>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <hr>
+
+    <div th:each="sheet: ${ResMap}">
+        <!--th:width="sheetDataList = ${T(com.nhnpc.cell.util.etc.JsonUtil).getListValue('${ResMap}', '${sheet.key}')}"-->
+        <!--[[#{T(com.nhnpc.cell.util.etc.JsonUtil).getListValue(ResMap, sheet.key)}]]-->
+        <h2 th:id="${sheet.key}"><a href="#top" th:text="${sheet.key}"></a></h2>
+        <input th:if="${isSheetData}" type="button" th:value="${htmlApplyButtonCaption}" th:data-parameter1="${sheet.key}" th:onclick="onApplyClick('parameter1')"/>
+        <input th:unless="${isSheetData}" type="button" th:value="${htmlTargetViewButtonCaption}" th:data-parameter1="${sheet.key}" th:onclick="onViewButtonClick('data-parameter1')"/>
+
+        <br>
+        <br>
+
+        <table>
+            <tr>
+                <th th:each="title : ${sheet.value[0]}" th:text="${title.key}"/>
+            </tr>
+            <tr th:each="sheetData : ${sheet.value}">
+                <td th:each="column : ${sheetData}" th:text="${column.value}"> </td>
+            </tr>
+        </table>
+    </div>
+
+</form>
+</body>
+</html>

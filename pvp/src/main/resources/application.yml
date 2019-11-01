@@ -1,0 +1,94 @@
+# Spring
+spring:
+  profiles:
+    active: local
+  thymeleaf:
+    enabled: true
+
+logging.level.org.thymeleaf: info
+
+# actuator
+management:
+  endpoints.web.exposure.include: '*'
+  health.redis.enabled: false
+  endpoint:
+    logfile.enabled: false
+    loggers.enabled: false
+
+# Local
+---
+# spring
+spring:
+  profiles: local
+  devtools:
+    livereload:
+      enabled: true
+  freemarker:
+    cache: false
+  boot:
+    admin:
+      client:
+        url: http://localhost:10500
+
+spring.thymeleaf:
+  prefix: 'classpath:templates/'
+  check-template-location: true
+  suffix: '.html'
+  mode: 'HTML'
+  cache: false
+
+server:
+    port: 10010
+
+# netty configuration
+netty:
+  port: 10011
+  threads:
+    worker: 4
+    acceptor: 2
+  backlog: 100
+  report:
+    use : true
+    interval: 30000
+
+  play:
+    websocket:
+      buffer:
+        limit: 2621440
+
+
+# Dev
+---
+# spring
+spring:
+  profiles: dev
+  boot:
+    admin:
+      client:
+        url: http://localhost:10500
+
+spring.thymeleaf:
+  prefix: 'classpath:templates/'
+  check-template-location: true
+  suffix: '.html'
+  mode: 'HTML'
+  cache: true
+
+server:
+    port: 10010
+
+# netty configuration
+netty:
+  port: 10011
+  threads:
+    worker: 4
+    acceptor: 2
+  backlog: 100
+  report:
+    use : true
+    interval: 30000
+
+  play:
+    websocket:
+      buffer:
+        limit: 2621440

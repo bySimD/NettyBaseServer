@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" th:with="htmlTitle='MultiRoom 어드민'">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${htmlTitle}"></title>
+    <link rel="stylesheet" type="text/css" href="/css/AdminCommon.css" />
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+    <style type = "text/css">
+        #lobby-ul {
+            display: flex;
+            flex-wrap: wrap;
+            margin:0;
+        }
+
+        .session {
+            position: relative;
+            width: 20%;
+            padding-left: 30px;
+            list-style-type: none;
+            margin-top: 2px;
+        }
+
+        .session .closeButton {
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-style: none;
+        }
+
+        .room {
+            position: relative;
+            border:1px solid gold;
+            float: left;
+            width: auto;
+            min-width: 520px;
+            height: auto;
+            min-height: 210px;
+            padding : 10px;
+            background: #fffeea;
+        }
+
+        .roomList {
+            clear : left;
+            margin-top: 5px;
+
+        }
+        .title {
+            background: #f2dede;
+            padding: 5px;
+            font-size : 20px;
+            overflow: hidden;
+        }
+        .room ul {
+            margin: 0;
+        }
+
+        .room p {
+            margin: 0;
+        }
+
+        .closeButton {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding-left: 4px;
+            padding-right: 4px;
+        }
+    </style>
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        var autoRefreshTimer = null;
+
+        function onLoad()
+        {
+            onToggleAutoRefresh(true);
+        }
+
+        function onToggleAutoRefresh(autoRefresh)
+        {
+            if (autoRefresh)
+            {
+                requestData();
+
+                autoRefreshTimer = setInterval(requestData, 3000);
+            }
+            else
+            {
+                clearInterval(autoRefreshTimer);
+            }
+        }
+
+        function requestData(param) {
+            var url = "admin.do?pageName=admin/RoomStatusRefresh";
+
+            if (param !== undefined) {
+                url += param;
+            }
+
+            $.ajax({
+                type : "GET",
+                url : url,
+                dataType : "text",
+                error : function () {
+                    alert("잠시후 다시 시도 부탁드립니다" );
+                },
+                success : function (dataString) {
+                    var dataJson = JSON.parse(decodeURIComponent(dataString));
+                    dataClear();
+                    lobbyDataRefresh(dataJson["lobby"]);
+                    roomDataRefresh(dataJson["room"]);
+                }
+
+            })
+
+        }
+
+        function dataClear(){
+            $('#lobby-ul').remove();
+            $('.room').remove();
+            for (index in $('.count')) {
+                $('.count')[index].innerText = 0;
+            }
+        }
+
+        function lobbyDataRefresh(dataJson) {
+            var parentDivName = "lobby";
+            var parentDiv = document.getElementById(parentDivName);
+            var parentTitle = document.getElementById(parentDivName+'-count');
+
+            parentTitle.innerText = dataJson.length;
+
+            var newUL = document.createElement('ul');
+            newUL.setAttribute("id", "lobby-ul");
+
+            for (index in dataJson) {
+
+                var sessionInfo = dataJson[index];
+
+                var newLI = document.createElement('li');
+
+
+                newLI.setAttribute("id", sessionInfo.UserID);
+                newLI.setAttribute("class", "session");
+                newLI.innerHTML = sessionInfo.NickName + " ( " + sessionInfo.UserID + " )";
+
+                var closeButton = document.createElement('button');
+                closeButton.setAttribute("class", "closeButton");
+                closeButton.innerText = "X";
+                closeButton.addEventListener('click', onClickSessionClose);
+                newLI.appendChild(closeButton);
+                newUL.appendChild(newLI);
+            }
+            parentDiv.appendChild(newUL);
+        }
+
+        function roomDataRefresh(dataJson) {
+            for (key in dataJson) {
+                var parentDivName = getParentDivName(key);
+
+                var parentDiv = document.getElementById(parentDivName);
+                var roomList = dataJson[key];
+                var parentTitle = document.getElementById(parentDivName+'-count');
+
+                parentTitle.innerText = roomList.length;
+
+                for (roomIndex in roomList) {
+                    var room = roomList[roomIndex];
+
+                    var newDiv = document.createElement('div');
+                    newDiv.setAttribute("id", room.RoomID);
+                    newDiv.setAttribute("class", "room");
+
+                    var chapterStageInfo = "";
+                    for (chapterStageIndex in room.ChapterStageList)
+                    {
+                        if (chapterStageInfo != "") chapterStageInfo += ",";
+                        chapterStageInfo += room.ChapterStageList[chapterStageIndex];
+                    }
+
+                    newDiv.innerHTML = "방 아이디 : " + room.RoomID + "<br>" +
+                        // "방 상태: " + room.RoomStatus + "<br>" +
+                        "챕터 아이디 : " + room.ChapterID + ", 스테이지 리스트 : [" + chapterStageInfo + "]" + "<br>" +
+                        "유저 (" + room.SessionList.length + "/" + room.MaxUserCount + ")";
+
+
+                    var teamMap = new Map();
+                    for (sessionIndex in room.SessionList) {
+                        var session = room.SessionList[sessionIndex];
+
+                        var newLI = document.createElement('li');
+                        newLI.innerHTML = session.NickName + " ( " + session.UserID + " )";
+                        if (session.Status !== undefined) {
+                            newLI.innerHTML +=  " - " + session.Status;
+
+                        }
+
+                        if (teamMap.has(session.TeamID)) {
+                            teamMap.get(session.TeamID).push(newLI);
+                        }
+                        else {
+                            var newUserList = new Array();
+                            newUserList.push(newLI);
+                            teamMap.set(session.TeamID, newUserList);
+                        }
+
+                    }
+
+                    // console.log(teamMap);
+                    teamMap.forEach(function (value, key) {
+                        var newTeam = document.createElement('p');
+                        newTeam.innerHTML = key + "팀";
+                        newDiv.appendChild(newTeam);
+
+                        var newUL = document.createElement('ul');
+                        value.forEach(function (value) {
+                            newUL.appendChild(value);
+                        });
+
+                        newDiv.appendChild(newUL);
+                    });
+
+                    var closeButton = document.createElement('button');
+                    closeButton.setAttribute("class", "closeButton");
+                    closeButton.innerText = "X";
+                    closeButton.addEventListener('click', onClickRoomClose);
+                    newDiv.appendChild(closeButton);
+
+                    parentDiv.appendChild(newDiv);
+                }
+            }
+
+        }
+
+        function getParentDivName(i) {
+            if (i == '5')
+                return 'gameStart';
+            else if (i == '3')
+                return 'matching';
+
+            return 'matchReady';
+        }
+
+        function onClickSessionClose() {
+            var param = "&type=SessionOut&UserID="+this.parentNode.id;
+            requestData(param);
+        }
+
+        function onClickRoomClose() {
+            var param = "&type=RoomDelete&roomID="+this.parentNode.id;
+            requestData(param);
+        }
+        /*]]>*/
+    </script>
+</head>
+<body onload="onLoad();">
+<H1 th:text="${htmlTitle}"></H1>
+<hr>
+<div id = "roomPanel">
+    <H2> Room 목록</H2>
+    목록 자동 새로고침<input type="checkbox" onclick="onToggleAutoRefresh(this.checked);" checked>
+    <br><br>
+
+    <div id = "lobby">
+        <div class = "title">
+            로비 : <span class= "count" id = "lobby-count"> 0 </span> 명
+        </div>
+    </div>
+
+    <div id = "matchReady" class = "roomList">
+        <div class = "title">
+            대기 : <span class= "count" id = "matchReady-count"> 0 </span> 방
+        </div>
+
+    </div>
+
+    <div id = "matching" class = "roomList">
+        <div class = "title">
+            게임 진입 : <span class= "count" id = "matching-count"> 0 </span> 방
+        </div>
+
+    </div>
+
+    <div id = "gameStart" class = "roomList">
+        <div class = "title">
+            게임 시작 : <span class= "count" id = "gameStart-count"> 0 </span> 방
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
