@@ -17,12 +17,13 @@ public class ChannelFragmentRepository {
     private final Map<ChannelHandlerContext, List<byte[]>> fragmentCacheMap = new HashMap<>();
 
     public List<byte[]> getFragmentCache(ChannelHandlerContext ctx) {
-        List<byte[]> fragmentCache = fragmentCacheMap.get(ctx);
-        if (fragmentCache == null) {
-            fragmentCache = new ArrayList<>();
-            fragmentCacheMap.put(ctx, fragmentCache);
-        }
-        return fragmentCache;
+//        List<byte[]> fragmentCache = fragmentCacheMap.get(ctx);
+//        if (fragmentCache == null) {
+//            fragmentCache = new ArrayList<>();
+//            fragmentCacheMap.put(ctx, fragmentCache);
+//        }
+//        return fragmentCache;
+        return fragmentCacheMap.computeIfAbsent(ctx, k -> new ArrayList<byte[]>());
     }
 
     public void clearFragmentCache(ChannelHandlerContext ctx) {

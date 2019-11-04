@@ -19,7 +19,7 @@ import java.nio.charset.Charset;
 
 @Service
 @ChannelHandler.Sharable
-public class WebSockettHandler extends AbstractWebSocketHandler {
+public class WebSocketHandler extends AbstractWebSocketHandler {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
