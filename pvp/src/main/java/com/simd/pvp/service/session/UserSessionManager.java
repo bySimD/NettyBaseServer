@@ -1,4 +1,4 @@
-package com.simd.pvp.repository;
+package com.simd.pvp.service.session;
 
 import com.simd.pvp.service.session.UserSessionData;
 import com.simd.pvp.util.etc.EtcUtil;

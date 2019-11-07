@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 
 @Data
-public class WSBlastMatchRoomData
+public class RoomData
 {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -33,7 +33,7 @@ public class WSBlastMatchRoomData
 	// 사용자 세션 리스트
 	private ConcurrentList<UserSessionData> sessionList;
 
-	public WSBlastMatchRoomData()
+	public RoomData()
 	{
 		roomID = EtcUtil.generateUniqueID();
 		sessionList = new ConcurrentList<UserSessionData>(new ArrayList<UserSessionData>());

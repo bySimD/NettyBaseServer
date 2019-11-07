@@ -3,10 +3,10 @@ package com.simd.pvp.netty.handler;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.simd.pvp.repository.ChannelFragmentRepository;
+import com.simd.pvp.netty.repository.WebsocketFragmentRepository;
 import com.simd.pvp.protocol.base.ProtocolService;
 import com.simd.pvp.service.session.UserSessionData;
-import com.simd.pvp.repository.UserSessionManager;
+import com.simd.pvp.service.session.UserSessionManager;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
@@ -23,7 +23,7 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    ChannelFragmentRepository channelFragmentRepository;
+    WebsocketFragmentRepository websocketFragmentRepository;
     /**
      * 사용자 세션 매니저 객체.
      */
@@ -60,6 +60,6 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
         UserSessionData userSessionData = wsUserSessionManager.getUserSessionData(ctx.channel());
         logger.info("[Close session] UID: {}, Nick :{}", userSessionData.getUserID(), userSessionData.getNickName());
         protocolService.connectionClose(userSessionData);
-        channelFragmentRepository.removeFragmentCache(ctx);
+        websocketFragmentRepository.removeFragmentCache(ctx);
     }
 }

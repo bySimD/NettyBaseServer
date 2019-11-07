@@ -1,4 +1,4 @@
-package com.simd.pvp.repository;
+package com.simd.pvp.netty.repository;
 
 import io.netty.channel.ChannelHandlerContext;
 import org.slf4j.Logger;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class ChannelFragmentRepository {
+public class WebsocketFragmentRepository {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final Map<ChannelHandlerContext, List<byte[]>> fragmentCacheMap = new HashMap<>();

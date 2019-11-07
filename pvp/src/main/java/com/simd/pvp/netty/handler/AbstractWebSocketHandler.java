@@ -1,12 +1,10 @@
 package com.simd.pvp.netty.handler;
 
-import com.simd.pvp.repository.ChannelFragmentRepository;
+import com.simd.pvp.netty.repository.WebsocketFragmentRepository;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +14,7 @@ import java.util.List;
 public abstract class AbstractWebSocketHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
 
     @Autowired
-    ChannelFragmentRepository channelFragmentRepository;
+    WebsocketFragmentRepository websocketFragmentRepository;
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, WebSocketFrame webSocketFrame) {
@@ -46,7 +44,7 @@ public abstract class AbstractWebSocketHandler extends SimpleChannelInboundHandl
         }
 
         byte[] frameBytes;
-        List<byte[]> fragmentCache = channelFragmentRepository.getFragmentCache(ctx);
+        List<byte[]> fragmentCache = websocketFragmentRepository.getFragmentCache(ctx);
         if (webSocketFrame.isFinalFragment() && fragmentCache.isEmpty()) {
             frameBytes = curFragmentBytes;
         } else if (webSocketFrame.isFinalFragment()) {
@@ -65,7 +63,7 @@ public abstract class AbstractWebSocketHandler extends SimpleChannelInboundHandl
 
             System.arraycopy(curFragmentBytes, 0, frameBytes, startPos, curFragmentBytes.length);
 
-            channelFragmentRepository.clearFragmentCache(ctx);
+            websocketFragmentRepository.clearFragmentCache(ctx);
         } else {
             fragmentCache.add(curFragmentBytes);
             return;
