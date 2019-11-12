@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.simd.pvp.db.mybatis.other.mapper.Other">
+
+    <select id="getInfo" resultType="com.simd.pvp.db.mybatis.other.vo.OtherVo">
+    <![CDATA[
+        SELECT
+            mbr_no,
+        	reg_date,
+        	extra_data
+        FROM
+        	basic_game
+        WHERE
+            mbr_no = #{mbr_no}
+            ;
+    ]]>	
+    </select>
+</mapper>

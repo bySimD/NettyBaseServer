@@ -37,7 +37,7 @@ public class RoutingDatasource extends AbstractRoutingDataSource {
     protected Object determineCurrentLookupKey() {
 
         boolean is_read_only = TransactionSynchronizationManager.isCurrentTransactionReadOnly();
-        if(is_read_only == true) {
+        if(is_read_only) {
             return DBconsts.SLAVE;
         } else {
             return DBconsts.MASTER;

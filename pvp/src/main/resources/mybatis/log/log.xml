@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.simd.pvp.db.mybatis.log.mapper.Log">
+
+    <insert id="setLog" parameterType="com.simd.pvp.db.mybatis.log.vo.LogVo">
+        INSERT
+        INTO
+            basic_log(
+                mbr_no,
+                extra_data
+        	)
+        VALUES
+        <foreach item="log" collection="logs" open="(" close=");" separator="), (">
+            #{log.mbr_no},#{log.extra_data}
+        </foreach>
+    </insert>
+</mapper>

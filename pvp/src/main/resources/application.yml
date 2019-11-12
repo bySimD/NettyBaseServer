@@ -20,9 +20,9 @@ management:
 # spring
 spring:
   profiles: local
-  devtools:
-    livereload:
-      enabled: true
+#  devtools:
+#    livereload:
+#      enabled: true
   freemarker:
     cache: false
   boot:

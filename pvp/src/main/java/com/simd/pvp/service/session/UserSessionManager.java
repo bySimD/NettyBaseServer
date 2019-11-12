@@ -1,6 +1,5 @@
 package com.simd.pvp.service.session;
 
-import com.simd.pvp.service.session.UserSessionData;
 import com.simd.pvp.util.etc.EtcUtil;
 import io.netty.channel.Channel;
 import org.slf4j.Logger;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.HashMap;
-
 
 @Component
 public class UserSessionManager

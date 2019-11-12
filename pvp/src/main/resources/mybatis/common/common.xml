@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.simd.pvp.db.mybatis.common.mapper.CommonShard">
+
+    <select id="getShard" resultType="com.simd.pvp.db.mybatis.common.vo.ShardVo">
+    <![CDATA[
+        SELECT
+        	shard_no,
+        	user_count,
+        	acceptable,
+        	extra_data
+        FROM
+        	basic_shard;
+    ]]>	
+    </select>
+
+    <select id="getShardMember" resultType="com.simd.pvp.db.mybatis.common.vo.ShardMemberVo">
+    <![CDATA[
+        SELECT
+        	mbr_no,
+        	shard_no,
+        	created_date
+        FROM
+        	basic_shard_member
+        WHERE
+            mbr_no = #{mbr_no};
+    ]]>
+    </select>
+
+    <insert id="setShardMember" parameterType="com.simd.pvp.db.mybatis.common.vo.ShardMemberVo">
+        INSERT
+        INTO
+            basic_shard_member(
+                mbr_no,
+                shard_no
+        	)
+        VALUES
+        	(#{mbr_no},#{shard_no})
+        ON DUPLICATE KEY UPDATE
+            ;
+    </insert>
+</mapper>
