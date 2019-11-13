@@ -5,7 +5,7 @@ datasource:
       driver-class-name: "com.mysql.cj.jdbc.Driver"
       url: "jdbc:mysql://127.0.0.1:3306/basic_common?serverTimezone=Asia/Seoul&charset=utf8&zeroDateTimeBehavior=convertToNull"
       user-name: "root"
-      password: "nhn!@#123"
+      password: "hj930519"
       max-pool-size: 10
       maximum_idle: 10
       minimum_idle: 10
@@ -24,7 +24,7 @@ datasource:
       driver-class-name: "com.mysql.cj.jdbc.Driver"
       url: "jdbc:mysql://127.0.0.1:3306/basic_common?serverTimezone=Asia/Seoul&charset=utf8&zeroDateTimeBehavior=convertToNull"
       user-name: "root"
-      password: "nhn!@#123"
+      password: "hj930519"
       max-pool-size: 10
       maximum_idle: 10
       minimum_idle: 10
@@ -45,7 +45,7 @@ datasource:
       driver-class-name: "com.mysql.cj.jdbc.Driver"
       url: "jdbc:mysql://127.0.0.1:3306/basic_game01?serverTimezone=Asia/Seoul&charset=utf8&zeroDateTimeBehavior=convertToNull"
       user-name: "root"
-      password: "nhn!@#123"
+      password: "hj930519"
       max-pool-size: 10
       maximum_idle: 10
       minimum_idle: 10
@@ -64,7 +64,7 @@ datasource:
       driver-class-name: "com.mysql.cj.jdbc.Driver"
       url: "jdbc:mysql://127.0.0.1:3306/basic_game01?serverTimezone=Asia/Seoul&charset=utf8&zeroDateTimeBehavior=convertToNull"
       user-name: "root"
-      password: "nhn!@#123"
+      password: "hj930519"
       max-pool-size: 10
       maximum_idle: 10
       minimum_idle: 10
@@ -83,7 +83,7 @@ datasource:
       driver-class-name: "com.mysql.cj.jdbc.Driver"
       url: "jdbc:mysql://127.0.0.1:3306/basic_game02?serverTimezone=Asia/Seoul&charset=utf8&zeroDateTimeBehavior=convertToNull"
       user-name: "root"
-      password: "nhn!@#123"
+      password: "hj930519"
       max-pool-size: 10
       maximum_idle: 10
       minimum_idle: 10
@@ -102,7 +102,7 @@ datasource:
       driver-class-name: "com.mysql.cj.jdbc.Driver"
       url: "jdbc:mysql://127.0.0.1:3306/basic_game02?serverTimezone=Asia/Seoul&charset=utf8&zeroDateTimeBehavior=convertToNull"
       user-name: "root"
-      password: "nhn!@#123"
+      password: "hj930519"
       max-pool-size: 10
       maximum_idle: 10
       minimum_idle: 10
@@ -123,7 +123,7 @@ datasource:
       driver-class-name: "com.mysql.cj.jdbc.Driver"
       url: "jdbc:mysql://127.0.0.1:3306/basic_log01?serverTimezone=Asia/Seoul&charset=utf8&zeroDateTimeBehavior=convertToNull"
       user-name: "root"
-      password: "nhn!@#123"
+      password: "hj930519"
       max-pool-size: 10
       maximum_idle: 10
       minimum_idle: 10
@@ -142,7 +142,7 @@ datasource:
       driver-class-name: "com.mysql.cj.jdbc.Driver"
       url: "jdbc:mysql://127.0.0.1:3306/basic_log01?serverTimezone=Asia/Seoul&charset=utf8&zeroDateTimeBehavior=convertToNull"
       user-name: "root"
-      password: "nhn!@#123"
+      password: "hj930519"
       max-pool-size: 10
       maximum_idle: 10
       minimum_idle: 10
@@ -161,7 +161,7 @@ datasource:
       driver-class-name: "com.mysql.cj.jdbc.Driver"
       url: "jdbc:mysql://127.0.0.1:3306/basic_log02?serverTimezone=Asia/Seoul&charset=utf8&zeroDateTimeBehavior=convertToNull"
       user-name: "root"
-      password: "nhn!@#123"
+      password: "hj930519"
       max-pool-size: 10
       maximum_idle: 10
       minimum_idle: 10
@@ -180,7 +180,7 @@ datasource:
       driver-class-name: "com.mysql.cj.jdbc.Driver"
       url: "jdbc:mysql://127.0.0.1:3306/basic_log02?serverTimezone=Asia/Seoul&charset=utf8&zeroDateTimeBehavior=convertToNull"
       user-name: "root"
-      password: "nhn!@#123"
+      password: "hj930519"
       max-pool-size: 10
       maximum_idle: 10
       minimum_idle: 10
