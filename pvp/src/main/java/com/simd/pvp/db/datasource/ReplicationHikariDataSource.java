@@ -3,13 +3,13 @@ package com.simd.pvp.db.datasource;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
 public class ReplicationHikariDataSource extends HikariDataSource{
 
-	private boolean is_master;
-	private int shard_no;
+	@Getter @Setter private boolean is_master;
+	@Getter @Setter private int shard_no;
 
 	@Builder
 	public ReplicationHikariDataSource(HikariConfig configuration, boolean is_master, int shard_no) {

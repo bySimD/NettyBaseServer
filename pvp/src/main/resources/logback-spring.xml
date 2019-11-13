@@ -40,22 +40,22 @@
             <appender-ref ref="STDOUT" />
         </root>
         <logger name="org.springframework.beans" level="info">
-            <appender-ref ref="STDOUT" />
+            <!--<appender-ref ref="STDOUT" />-->
         </logger>
         <logger name="org.springframework.boot" level="info">
-            <appender-ref ref="STDOUT" />
+            <!--<appender-ref ref="STDOUT" />-->
         </logger>
         <logger name="org.springframework.core" level="info">
-            <appender-ref ref="STDOUT" />
-        </logger>
-        <logger name="org.springframework.beans" level="info">
-            <appender-ref ref="STDOUT" />
+            <!--<appender-ref ref="STDOUT" />-->
         </logger>
         <logger name="org.springframework.context" level="info">
-            <appender-ref ref="STDOUT" />
+            <!--<appender-ref ref="STDOUT" />-->
         </logger>
         <logger name="org.springframework.web" level="info">
-            <appender-ref ref="STDOUT" />
+            <!--<appender-ref ref="STDOUT" />-->
+        </logger>
+        <logger name="com.zaxxer.hikari" level="info">
+            <!--<appender-ref ref="STDOUT" />-->
         </logger>
     </springProfile>
     <springProfile name="dev">
