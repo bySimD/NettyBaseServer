@@ -39,13 +39,11 @@ subprojects {
 
 project(':pvp') {
     dependencies {
-        compile project(':pvp')
     }
 }
 
 
 project(':admin') {
     dependencies {
-        compile project(':admin')
     }
 }
