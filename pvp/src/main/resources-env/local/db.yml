@@ -12,7 +12,7 @@ datasource:
       connection_timeout: 15000
       validation_timeout: 5000
       idle_timeout: 600000
-      max_life_time: 1727820
+      max_life_time: 28795000
       cache-prep-stmts: true
       prep-stmt-cache-size: 256
       prep-stmt-cache-sql-limit: 2048
@@ -31,7 +31,7 @@ datasource:
       connection_timeout: 15000
       validation_timeout: 5000
       idle_timeout: 600000
-      max_life_time: 1727820
+      max_life_time: 28795000
       cache-prep-stmts: true
       prep-stmt-cache-size: 256
       prep-stmt-cache-sql-limit: 2048
@@ -52,7 +52,7 @@ datasource:
       connection_timeout: 15000
       validation_timeout: 5000
       idle_timeout: 600000
-      max_life_time: 1727820
+      max_life_time: 28795000
       cache-prep-stmts: true
       prep-stmt-cache-size: 256
       prep-stmt-cache-sql-limit: 2048
@@ -71,7 +71,7 @@ datasource:
       connection_timeout: 15000
       validation_timeout: 5000
       idle_timeout: 600000
-      max_life_time: 1727820
+      max_life_time: 28795000
       cache-prep-stmts: true
       prep-stmt-cache-size: 256
       prep-stmt-cache-sql-limit: 2048
@@ -90,7 +90,7 @@ datasource:
       connection_timeout: 15000
       validation_timeout: 5000
       idle_timeout: 600000
-      max_life_time: 1727820
+      max_life_time: 28795000
       cache-prep-stmts: true
       prep-stmt-cache-size: 256
       prep-stmt-cache-sql-limit: 2048
@@ -109,7 +109,7 @@ datasource:
       connection_timeout: 15000
       validation_timeout: 5000
       idle_timeout: 600000
-      max_life_time: 1727820
+      max_life_time: 28795000
       cache-prep-stmts: true
       prep-stmt-cache-size: 256
       prep-stmt-cache-sql-limit: 2048
@@ -130,7 +130,7 @@ datasource:
       connection_timeout: 15000
       validation_timeout: 5000
       idle_timeout: 600000
-      max_life_time: 1727820
+      max_life_time: 28795000
       cache-prep-stmts: true
       prep-stmt-cache-size: 256
       prep-stmt-cache-sql-limit: 2048
@@ -149,7 +149,7 @@ datasource:
       connection_timeout: 15000
       validation_timeout: 5000
       idle_timeout: 600000
-      max_life_time: 1727820
+      max_life_time: 28795000
       cache-prep-stmts: true
       prep-stmt-cache-size: 256
       prep-stmt-cache-sql-limit: 2048
@@ -168,7 +168,7 @@ datasource:
       connection_timeout: 15000
       validation_timeout: 5000
       idle_timeout: 600000
-      max_life_time: 1727820
+      max_life_time: 28795000
       cache-prep-stmts: true
       prep-stmt-cache-size: 256
       prep-stmt-cache-sql-limit: 2048
@@ -187,7 +187,7 @@ datasource:
       connection_timeout: 15000
       validation_timeout: 5000
       idle_timeout: 600000
-      max_life_time: 1727820
+      max_life_time: 28795000
       cache-prep-stmts: true
       prep-stmt-cache-size: 256
       prep-stmt-cache-sql-limit: 2048
